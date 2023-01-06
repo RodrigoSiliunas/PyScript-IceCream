@@ -10,4 +10,4 @@ As principais tecnologias utilizadas nesse projeto são listadas abaixo. É clar
 >HTML5
 >PyScript
 
-![ImagemDemonstrativa]('static/images/site-demonstration.png')
+![ImagemDemonstrativa](static/images/site-demonstration.png)
