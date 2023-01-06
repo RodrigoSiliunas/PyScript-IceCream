@@ -6,8 +6,10 @@ Esse repositório contém o uso exemplificado do PyScript. Se trata de uma landi
 
 As principais tecnologias utilizadas nesse projeto são listadas abaixo. É claro que pode haver tecnologias usadas que não são listadas.
 
->BootStrap5
->HTML5
->PyScript
+> 1. BootStrap5
+> 2. HTML5
+> 3. PyScript
+
+### Imagem Demonstrativa
 
 ![ImagemDemonstrativa](static/images/site-demonstration.png)
