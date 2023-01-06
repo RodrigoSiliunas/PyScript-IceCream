@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- BootStrap CDN CSS and Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+
+    <!-- PyScript CDN CSS -->
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+
+    <!-- Personal CSS -->
+    <link rel="stylesheet" href="styles/style.css" />
+
+    <title>Landing Page: HTML & CSS</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <p>
+        Esse é um simples teste. Uma landing page usando PyScript ao invés de
+        JavaScript. O intuito é adicionar seus sorvetes ao banco de dados em
+        formato de Tabela.
+      </p>
+
+      <div class="form-container">
+        <div class="icon-container">
+          <i id="add-icon" py-click="add_ice_cream()" class="bi bi-file-earmark-plus-fill"></i>
+        </div>
+        <form id="ice-cream-form" onsubmit="return false">
+          <div class="row">
+            <div class="col-6">
+              <label class="form-label" for="ice-cream-name"
+                >Nome do Sorvete</label
+              >
+              <input
+                class="form-control"
+                type="text"
+                id="ice-cream-name"
+                name="ice-cream-name"
+                placeholder="Nome do Sorvete"
+              />
+            </div>
+
+            <div class="col-2">
+              <label class="form-label" for="ice-cream-quantity"
+                >Quantidade</label
+              >
+              <input
+                class="form-control"
+                type="number"
+                id="ice-cream-quantity"
+                name="ice-cream-quantity"
+                value="1"
+              />
+            </div>
+
+            <div class="col-4">
+              <label class="form-label" for="ice-cream-disponibility"
+                >Disponibilidade</label
+              >
+              <select
+                class="form-control"
+                id="ice-cream-disponibility"
+                name="ice-cream-disponibility"
+              >
+                <option selected>Selecione uma opção</option>
+                <option>Disponível</option>
+                <option>Indisponível</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <label for="ice-cream-unity-value">Valor Unitário</label>
+              <input
+                class="form-control"
+                type="number"
+                id="ice-cream-unity-value"
+                name="ice-cream-unity-value"
+                placeholder="R$ 0,00"
+              />
+            </div>
+          </div>
+
+          <div class="row my-4">
+            <div class="col">
+              <button type="reset" class="btn btn-outline-danger">
+                Limpar Formulário
+              </button>
+            </div>
+            <div class="col">
+              <button
+                id="btn-submit"
+                py-click="add_ice_cream()"
+                type="submit"
+                class="btn btn-primary"
+              >
+                Adicionar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <table id="ice-cream-table" class="table table-hover table-sm">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Sabor de Sorvete</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">Disponibilidade</th>
+            <th scope="col">Valor Unitário</th>
+            <th scope="col">Valor Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Morango</td>
+            <td>10</td>
+            <td>Disponível</td>
+            <td>R$ 5.00</td>
+            <td>R$ 50.00</td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <py-script>
+      from js import document 
+      table = document.querySelector('table tbody')
+      field_list = [
+           'ice-cream-name',
+           'ice-cream-quantity',
+           'ice-cream-disponibility',
+           'ice-cream-unity-value',
+           'ice-cream-total-value'
+      ]
+
+      def add_ice_cream():
+          tr = document.createElement('tr')
+          
+          for field in field_list:
+              td = document.createElement('td')
+
+              if field.endswith('unity-value'):
+                  value = int(document.getElementById('ice-cream-unity-value').value)
+                  td.innerText = f'R$ {value:.2f}'
+                  tr.appendChild(td)
+                  continue
+
+              if field.endswith('total-value'):
+                ice_cream_value = int(document.getElementById('ice-cream-unity-value').value)
+                ice_cream_quantity = int(document.getElementById('ice-cream-quantity').value)
+                total_value = ice_cream_value * ice_cream_quantity
+                td.innerText = f'R$ {total_value:.2f}'
+                tr.appendChild(td)
+                continue
+
+              td.innerText = document.getElementById(field).value
+              tr.appendChild(td)
+
+          table.appendChild(tr)
+
+          for field in field_list:
+            if not field.endswith('total-value'):
+              input_field = document.getElementById(field)
+              input_field.value = ''
+    </py-script>
+
+    <!-- BootStrap CDN JavaScript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- PyScript CDN JavaScript -->
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+  </body>
+</html>
